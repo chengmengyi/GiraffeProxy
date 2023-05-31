@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_layout"
+    android:layout_width="match_parent"
+    android:layout_height="67dp"
+    android:paddingLeft="22dp"
+    android:paddingRight="22dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:gravity="center_vertical"
+    android:background="@drawable/vpn_item_bg_selector">
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:src="@drawable/fast"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#333333"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_gou"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/gou"/>
+</androidx.appcompat.widget.LinearLayoutCompat>
