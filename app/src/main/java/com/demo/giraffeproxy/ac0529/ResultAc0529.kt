@@ -2,6 +2,9 @@ package com.demo.giraffeproxy.ac0529
 
 import com.demo.giraffeproxy.BaseAc0529
 import com.demo.giraffeproxy.R
+import com.demo.giraffeproxy.admob0529.LoadAd0529Util
+import com.demo.giraffeproxy.admob0529.ShowNative0529Ad
+import com.demo.giraffeproxy.util.AdLimit0529Util
 import com.demo.giraffeproxy.util.ConnectTimeCallback
 import com.demo.giraffeproxy.util.getVpnLogo
 import com.demo.giraffeproxy.vpn0529.ConnectVpnUtil0529
@@ -13,6 +16,7 @@ import java.lang.Exception
 
 class ResultAc0529:BaseAc0529(R.layout.activity_reuslt), ConnectTimeCallback {
     private var connect=false
+    private val showResultAd = ShowNative0529Ad(LoadAd0529Util.RESULT,this)
 
     override fun init0529View() {
         immersionBar.statusBarView(view_top).init()
@@ -39,10 +43,6 @@ class ResultAc0529:BaseAc0529(R.layout.activity_reuslt), ConnectTimeCallback {
         tv_time.text=transTime(time)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        VpnConnectTimeUtil0529.setConnectTimeCallback(null)
-    }
 
     private fun transTime(t:Long):String{
         try {
@@ -55,5 +55,17 @@ class ResultAc0529:BaseAc0529(R.layout.activity_reuslt), ConnectTimeCallback {
             return "${s}:${f}:${m}"
         }catch (e: Exception){}
         return "00:00:00"
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showResultAd.loop()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        showResultAd.endLoop()
+        AdLimit0529Util.setRefreshBool(LoadAd0529Util.RESULT,true)
+        VpnConnectTimeUtil0529.setConnectTimeCallback(null)
     }
 }

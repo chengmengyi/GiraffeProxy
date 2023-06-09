@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.demo.giraffeproxy.BaseAc0529
 import com.demo.giraffeproxy.R
 import com.demo.giraffeproxy.adapter.VpnList0529Adapter
+import com.demo.giraffeproxy.admob0529.LoadAd0529Util
 import com.demo.giraffeproxy.bean.Vpn0529Bean
 import com.demo.giraffeproxy.util.showDisconnectDialog
 import com.demo.giraffeproxy.vpn0529.ConnectVpnUtil0529
@@ -15,6 +16,7 @@ class VpnListAc0529:BaseAc0529(R.layout.activity_vpn_list) {
 
     override fun init0529View() {
         immersionBar.statusBarView(view_top).init()
+        LoadAd0529Util.preLoad(LoadAd0529Util.BACK)
 
         iv_back.setOnClickListener { onBackPressed() }
 
@@ -47,6 +49,12 @@ class VpnListAc0529:BaseAc0529(R.layout.activity_vpn_list) {
     }
 
     override fun onBackPressed() {
-        finish()
+        LoadAd0529Util.showFullAd(
+            LoadAd0529Util.BACK,
+            this,
+            noAdBack = true,
+            showingAd = {},
+            closeAd = { finish() }
+        )
     }
 }

@@ -1,40 +1,79 @@
 package com.demo.giraffeproxy.vpn0529
 
+import androidx.fragment.app.FragmentManager
+import com.demo.giraffeproxy.Loading
 import com.demo.giraffeproxy.bean.Vpn0529Bean
-import com.demo.giraffeproxy.conf0529.Local0529
-import com.demo.giraffeproxy.conf0529.Local0529.localVpnStr
+import com.demo.giraffeproxy.util.RequestUtil0529
 import com.github.shadowsocks.database.Profile
 import com.github.shadowsocks.database.ProfileManager
 import org.json.JSONArray
+import org.json.JSONObject
+import kotlin.random.Random
 
 object VpnInfoUtil0529 {
-    private val localVpnList= arrayListOf<Vpn0529Bean>()
-    private val fireVpnList= arrayListOf<Vpn0529Bean>()
-    private val fastCityList= arrayListOf<String>()
+    val allVpnList= arrayListOf<Vpn0529Bean>()
+    val fastVpnList= arrayListOf<Vpn0529Bean>()
 
-    fun initLocalVpn(){
+    fun parseVpnJsonStr(string: String){
         runCatching {
-            localVpnList.clear()
-            val jsonArray = JSONArray(localVpnStr)
-            for (index in 0 until jsonArray.length()){
-                val jsonObject = jsonArray.getJSONObject(index)
-                val vpn0529Bean = Vpn0529Bean(
-                    giraffe_pwd = jsonObject.optString("giraffe_pwd"),
-                    giraffe_account = jsonObject.optString("giraffe_account"),
-                    giraffe_port = jsonObject.optInt("giraffe_port"),
-                    giraffe_country = jsonObject.optString("giraffe_country"),
-                    giraffe_city = jsonObject.optString("giraffe_city"),
-                    giraffe_ip = jsonObject.optString("giraffe_ip"),
-                )
-                vpn0529Bean.writeVpnId()
-                localVpnList.add(vpn0529Bean)
+            val jsonObject = JSONObject(string)
+            if (jsonObject.optInt("code")==200){
+                val data = jsonObject.getJSONObject("data")
+                val fast=data.getJSONArray("oSJWLeTvOW")
+                val all=data.getJSONArray("MCuhvy")
+                parseVpnData(fast, fastVpnList)
+                parseVpnData(all, allVpnList)
             }
         }
     }
 
-    fun getVpnList()=fireVpnList.ifEmpty { localVpnList }
+    private fun parseVpnData(json: JSONArray, list: ArrayList<Vpn0529Bean>) {
+        if(json.length()>0){
+            list.clear()
+            for (index in 0 until json.length()){
+                val jsonObject = json.getJSONObject(index)
+                val serverBean = Vpn0529Bean(
+                    giraffe_pwd = jsonObject.optString("rupdVQdLf"),
+                    giraffe_account = jsonObject.optString("WrmIsWU"),
+                    giraffe_port = jsonObject.optInt("dKeNuE"),
+                    giraffe_country = jsonObject.optString("myTAzb"),
+                    giraffe_city = jsonObject.optString("lJmhshAJzj"),
+                    giraffe_ip = jsonObject.optString("dIXBKjlDC")
+                )
+                serverBean.writeVpnId()
+                list.add(serverBean)
+            }
+        }
+    }
 
-    fun getSmartVpn()=localVpnList.random()
+    fun getSmartVpn():Vpn0529Bean?{
+        if (fastVpnList.isEmpty()){
+            return null
+        }
+        return fastVpnList.random(Random(System.currentTimeMillis()))
+    }
+
+    fun checkHasFastVpn(manager: FragmentManager, hasFast:(has:Boolean)->Unit){
+        if(!ConnectVpnUtil0529.connectedVpnBean.isFastVpn()||fastVpnList.isNotEmpty()){
+            hasFast.invoke(true)
+            return
+        }
+        RequestUtil0529.getVpnList()
+        Loading{ hasFast.invoke(false) }.show(manager,"Loading")
+    }
+
+    fun checkCanJumpVpnListAc(manager: FragmentManager, jump:()->Unit){
+        if(allVpnList.isNotEmpty()){
+            jump.invoke()
+            return
+        }
+        if(RequestUtil0529.loadingVpn){
+            Loading{}.show(manager,"Loading")
+            return
+        }
+        RequestUtil0529.getVpnList()
+        Loading{ jump.invoke() }.show(manager,"Loading")
+    }
 
     fun Vpn0529Bean.isFastVpn()=giraffe_country=="Super Fast Server"&&giraffe_ip.isEmpty()
 

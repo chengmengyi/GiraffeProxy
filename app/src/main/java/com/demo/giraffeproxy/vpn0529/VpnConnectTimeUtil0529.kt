@@ -1,6 +1,7 @@
 package com.demo.giraffeproxy.vpn0529
 
 import com.demo.giraffeproxy.util.ConnectTimeCallback
+import com.demo.giraffeproxy.util.RequestUtil0529
 import kotlinx.coroutines.*
 
 object VpnConnectTimeUtil0529 {
@@ -19,6 +20,9 @@ object VpnConnectTimeUtil0529 {
             while (null!=job) {
                 connectTimeCallback?.connectTime(time)
                 time++
+                if(time%60==0L){
+                    RequestUtil0529.vpnHeartUpload(true)
+                }
                 delay(1000L)
             }
         }

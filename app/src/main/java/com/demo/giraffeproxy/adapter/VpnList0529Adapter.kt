@@ -24,7 +24,7 @@ class VpnList0529Adapter(
 
     init {
         list.add(Vpn0529Bean())
-        list.addAll(VpnInfoUtil0529.getVpnList())
+        list.addAll(VpnInfoUtil0529.allVpnList)
     }
 
     inner class VpnView0529(view:View):ViewHolder(view){

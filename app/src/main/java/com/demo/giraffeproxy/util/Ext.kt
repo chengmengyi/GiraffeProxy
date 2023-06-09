@@ -9,11 +9,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.demo.giraffeproxy.BuildConfig
 import com.demo.giraffeproxy.R
+import java.lang.Exception
 
 
-fun printGiraffe(string: String){
+fun printGiraffe(string: String,tag:String="qwer"){
     if(BuildConfig.DEBUG){
-        Log.e("qwer",string)
+        Log.e(tag,string)
     }
 }
 
@@ -88,3 +89,21 @@ fun AppCompatActivity.showDisconnectDialog(sure:()->Unit){
         show()
     }
 }
+
+fun AppCompatActivity.showLimitUserDialog(){
+    AlertDialog.Builder(this).apply {
+        setCancelable(false)
+        setMessage("Due to the policy reason , this service is not available in your country")
+        setPositiveButton("confirm") { _, _ -> finish() }
+        show()
+    }
+}
+
+fun str2Int(string: String):Int{
+    runCatching {
+        return string.toInt()
+    }
+    return 0
+}
+
+fun String.limitArea0529()=contains("IR")||contains("MO")||contains("HK")||contains("CN")
