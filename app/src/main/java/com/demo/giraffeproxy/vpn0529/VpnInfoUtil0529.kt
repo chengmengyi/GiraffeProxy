@@ -34,7 +34,7 @@ object VpnInfoUtil0529 {
                 val jsonObject = json.getJSONObject(index)
                 val serverBean = Vpn0529Bean(
                     giraffe_pwd = jsonObject.optString("rupdVQdLf"),
-                    giraffe_account = jsonObject.optString("WrmIsWU"),
+                    giraffe_account = jsonObject.optString("CyEnUzu"),
                     giraffe_port = jsonObject.optInt("dKeNuE"),
                     giraffe_country = jsonObject.optString("myTAzb"),
                     giraffe_city = jsonObject.optString("lJmhshAJzj"),

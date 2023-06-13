@@ -9,6 +9,7 @@ import com.demo.giraffeproxy.util.AppRegister
 import com.demo.giraffeproxy.util.Referrer0529Util
 import com.demo.giraffeproxy.vpn0529.VpnInfoUtil0529
 import com.github.shadowsocks.Core
+import com.google.android.gms.ads.MobileAds
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
 import com.tencent.mmkv.MMKV
@@ -24,6 +25,7 @@ class GiraffeApp:Application() {
             return
         }
         MMKV.initialize(this)
+        MobileAds.initialize(this)
         Firebase.initialize(this)
         init()
     }

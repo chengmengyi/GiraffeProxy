@@ -137,7 +137,7 @@ abstract class BaseAdmob {
     }
 
     fun showFullAd(type: String,baseAc0529: BaseAc0529,noAdBack:Boolean=false, showingAd:()->Unit, closeAd:()->Unit){
-        if(adNumLimit(type)||AdLimit0529Util.fullAdShowing||!baseAc0529.resume0529||Fire0529.cannotShowInterAd()){
+        if(adNumLimit(type)||AdLimit0529Util.fullAdShowing||!baseAc0529.resume0529||Fire0529.cannotShowInterAd(type)){
             closeAd.invoke()
             return
         }

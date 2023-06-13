@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "408233619741",
+    "project_id": "giraffe-a9809",
+    "storage_bucket": "giraffe-a9809.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:408233619741:android:14380263a02d40e2d5f1f4",
+        "android_client_info": {
+          "package_name": "com.highspeed.giraffe"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8usR7mxxfuFm6vXVJPtSBFGwGPavru6M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,6 +1,7 @@
 package com.demo.giraffeproxy.conf0529
 
 import com.demo.giraffeproxy.BuildConfig
+import com.demo.giraffeproxy.admob0529.LoadAd0529Util
 import com.demo.giraffeproxy.util.*
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
@@ -78,6 +79,10 @@ object Fire0529 {
         return true
     }
 
-    fun cannotShowInterAd()=!getGirRefgiraShowInterAd()||!getCloakShowInterAd()
-
+    fun cannotShowInterAd(type:String):Boolean{
+        if (type== LoadAd0529Util.CONNECT||type==LoadAd0529Util.BACK){
+            return !getGirRefgiraShowInterAd()||!getCloakShowInterAd()
+        }
+        return false
+    }
 }
