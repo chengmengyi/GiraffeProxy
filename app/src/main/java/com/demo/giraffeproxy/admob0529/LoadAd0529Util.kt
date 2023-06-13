@@ -13,7 +13,7 @@ object LoadAd0529Util:BaseAdmob() {
     const val BACK="giraffeff_cpe"
 
     fun preLoad(type: String,retryNum:Int=0){
-        if(adNumLimit(type)||adLoading(type)||adHasCache(type)||Fire0529.cannotShowInterAd()){
+        if(adNumLimit(type)||adLoading(type)||adHasCache(type)||Fire0529.cannotShowInterAd(type)){
             return
         }
         val adListByType = getAdListByType(type)

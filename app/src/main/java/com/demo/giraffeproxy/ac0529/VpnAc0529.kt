@@ -233,7 +233,7 @@ class VpnAc0529:BaseAc0529(R.layout.activity_vpn), VpnStateCallback, CancelConne
     }
 
     private fun toResultAc(canToResult: Boolean) {
-        if (canToResult&& AppRegister.appFront&& ActivityUtils.getTopActivity().javaClass.name==VpnAc0529::class.java.name){
+        if (canToResult&& resume0529&& ActivityUtils.getTopActivity().javaClass.name==VpnAc0529::class.java.name){
             startActivity(Intent(this,ResultAc0529::class.java).apply {
                 putExtra("connect",currentIsConnect)
             })

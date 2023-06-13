@@ -137,7 +137,7 @@ abstract class BaseAdmob {
     }
 
     fun showFullAd(type: String,baseAc0529: BaseAc0529,noAdBack:Boolean=false, showingAd:()->Unit, closeAd:()->Unit){
-        if(adNumLimit(type)||AdLimit0529Util.fullAdShowing||!baseAc0529.resume0529||Fire0529.cannotShowInterAd()){
+        if(adNumLimit(type)||AdLimit0529Util.fullAdShowing||!baseAc0529.resume0529||Fire0529.cannotShowInterAd(type)){
             closeAd.invoke()
             return
         }
@@ -150,11 +150,11 @@ abstract class BaseAdmob {
             showingAd.invoke()
             when(adByType){
                 is InterstitialAd ->{
-                    adByType.fullScreenContentCallback= FullAdCallback(type,closeAd)
+                    adByType.fullScreenContentCallback= FullAdCallback(baseAc0529,type,closeAd)
                     adByType.show(baseAc0529)
                 }
                 is AppOpenAd ->{
-                    adByType.fullScreenContentCallback= FullAdCallback(type,closeAd)
+                    adByType.fullScreenContentCallback= FullAdCallback(baseAc0529,type,closeAd)
                     adByType.show(baseAc0529)
                 }
             }

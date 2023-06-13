@@ -1,10 +1,16 @@
 package com.demo.giraffeproxy.admob0529
 
+import com.demo.giraffeproxy.BaseAc0529
 import com.demo.giraffeproxy.util.AdLimit0529Util
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.FullScreenContentCallback
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class FullAdCallback(
+    private val baseAc0529: BaseAc0529,
     private val type:String,
     private val closeAd:()->Unit
 ): FullScreenContentCallback() {
@@ -32,5 +38,17 @@ class FullAdCallback(
     override fun onAdClicked() {
         super.onAdClicked()
         AdLimit0529Util.addClickNum()
+    }
+
+    private fun closeAd(){
+        if (type!= LoadAd0529Util.OPEN&&type!= LoadAd0529Util.BACK){
+            LoadAd0529Util.preLoad(type)
+        }
+        GlobalScope.launch(Dispatchers.Main) {
+            delay(200L)
+            if (baseAc0529.resume0529){
+                closeAd.invoke()
+            }
+        }
     }
 }
